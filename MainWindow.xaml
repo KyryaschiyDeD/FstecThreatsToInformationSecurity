@@ -1,0 +1,220 @@
+﻿<Window x:Class="FstecThreatsToInformationSecurity.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FstecThreatsToInformationSecurity.classes"
+        mc:Ignorable="d"
+        Title="Угрозы)" Height="650" Width="1250">
+    <Window.Resources>
+        <local:AddYbi x:Key="AddYbi"></local:AddYbi>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Menu Height="25" VerticalAlignment="Top" Grid.Row="0">
+            <MenuItem Header="Обновить данные" Click="RefreshData_Click" ></MenuItem>
+            <MenuItem Header="Просмотр" >
+                <MenuItem Header="Кратко" Name="ShowShort_MenuItem" Click="ShowShort_Click"></MenuItem>
+                <Separator />
+                <MenuItem Header="Кратко с нарушениями" Click="ShowShortPlus_Click" ></MenuItem>
+                <Separator />
+                <MenuItem Header="Полная информация" Click="Show_Click" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Сохранение" >
+                <MenuItem Header="в XLSX формат" Click="SaveXLSX_Click"></MenuItem>
+                <MenuItem Header="в JSON формат" Click="SaveJSON_ClickAsync"></MenuItem>
+                <MenuItem Header="в TXT формат" Click="SaveTXT_Click"></MenuItem>
+                <MenuItem Header="в XML формат" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Изменение" Click="ChangeById_Click" />
+            <MenuItem Header="Удаление" Click="DeleteById_Click" />
+        </Menu>
+
+        <DataGrid Grid.Row="1" Name="ShowGrid" IsReadOnly="True"  Height="auto" Width="auto" Margin="15,0,0,55" VerticalAlignment="Top" AutoGenerateColumns="False" RowHeight="70" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="65" Header ="Id" Binding="{Binding Path=Id, Converter={StaticResource AddYbi}}" />
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Path = Name}"/>
+                <DataGridTextColumn Header="Описание" Width="200" Binding="{Binding Path = Description}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Источник" Width="200" Binding="{Binding Path = Source}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Объект воздействия" Width="200" Binding="{Binding Path = ObjectThreat}"/>
+                <DataGridCheckBoxColumn Header="Нарушение конфиденциальности" Binding="{Binding Path = PrivacyPolicy}"/>
+                <DataGridCheckBoxColumn Header="Нарушение целостности" Binding="{Binding Path = Integrity}"/>
+                <DataGridCheckBoxColumn Header="Нарушение доступности" Binding="{Binding Path = Availability}"/>
+                <DataGridTextColumn Header="Дата включения угрозы в БнД УБИ" Binding="{Binding Path = DateCreate}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Дата последнего изменения данных в БнД УБИ" Binding="{Binding Path = DateUpdate}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Дата последнего обновления в локальной БД" Binding="{Binding Path = DateUpload}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" 
+                  Name="ShowShortGrid" IsReadOnly="True"  Height="auto" ColumnWidth = "*" 
+                  Width="auto" Margin="15,0,0,55" VerticalAlignment="Top" 
+                  AutoGenerateColumns="False" RowHeight="25" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="65" Header ="Id" Binding="{Binding Path=Id, Converter={StaticResource AddYbi}}" />
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Path = Name}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DockPanel Background="GhostWhite">
+                        <Grid Margin="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock FontSize="14" Text="ID: " FontWeight="Bold"  />
+                            <TextBlock FontSize="14" Text="{Binding Id}" Grid.Column="1"  />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Наименование: " FontWeight="Bold" Grid.Row="1" />
+                            <TextBlock Margin="0,7,0,0"  FontSize="14" Text="{Binding Name}" Grid.Column="1" Grid.Row="1" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Дата включения угрозы в БнД УБИ: " FontWeight="Bold" Grid.Row="2" />
+                            <TextBlock Margin="0,7,0,0" FontSize="14"  Text="{Binding DateCreate, StringFormat=d}" Grid.Column="1" Grid.Row="2" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Дата последнего изменения данных в БнД УБИ: " FontWeight="Bold" Grid.Row="3" />
+                            <TextBlock Margin="0,7,0,0" FontSize="14"  Text="{Binding DateUpdate, StringFormat=d}" Grid.Column="1" Grid.Row="3" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14"  Text="Описание: " FontWeight="Bold" Grid.Row="4" />
+                            <TextBlock Margin="0,7,0,0" FontSize="14"  Text="{Binding Description}" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Источник: " FontWeight="Bold" Grid.Row="5" />
+                            <TextBlock Margin="0,7,0,0"  FontSize="14" Text="{Binding Source}" Grid.Column="1" Grid.Row="5" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Объект воздействия: " FontWeight="Bold" Grid.Row="6" />
+                            <TextBlock Margin="0,7,0,0"  FontSize="14" Text="{Binding ObjectThreat}" Grid.Column="1" Grid.Row="6" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Нарушение конфиденциальности: " FontWeight="Bold" Grid.Row="7" />
+                            <TextBlock Margin="0,7,0,0"  FontSize="14" Text="{Binding PrivacyPolicy}" Grid.Column="1" Grid.Row="7" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Нарушение целостности: " FontWeight="Bold" Grid.Row="8" />
+                            <TextBlock Margin="0,7,0,0"  FontSize="14" Text="{Binding Integrity}" Grid.Column="1" Grid.Row="8" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Нарушение доступности: " FontWeight="Bold" Grid.Row="9" />
+                            <TextBlock Margin="0,7,0,0"  FontSize="14" Text="{Binding Availability}" Grid.Column="1" Grid.Row="9" />
+
+                            <TextBlock Margin="0,7,0,0" FontSize="14" Text="Дата последнего обновления в локальной БД: " FontWeight="Bold" Grid.Row="10" />
+                            <TextBlock Margin="0,7,0,0" FontSize="14"  Text="{Binding DateUpload, StringFormat=d}" Grid.Column="1" Grid.Row="10" />
+                        </Grid>
+                    </DockPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+
+        <DataGrid Grid.Row="1" Name="ShowShortPlusGrid" IsReadOnly="True"  Height="auto" Width="auto" Margin="0,0,50,0" VerticalAlignment="Top" AutoGenerateColumns="False" RowHeight="25" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="65" Header ="Id" Binding="{Binding Path=Id, Converter={StaticResource AddYbi}}" />
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Path = Name}"/>
+                <DataGridCheckBoxColumn Header="Нарушение конфиденциальности" Binding="{Binding Path = PrivacyPolicy}"/>
+                <DataGridCheckBoxColumn Header="Нарушение целостности" Binding="{Binding Path = Integrity}"/>
+                <DataGridCheckBoxColumn Header="Нарушение доступности" Binding="{Binding Path = Availability}"/>
+                <DataGridTextColumn Header="Дата включения угрозы в БнД УБИ" Binding="{Binding Path = DateCreate}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Column='1'
+                    Grid.Row='0'
+                    Grid.RowSpan='2'
+                    Grid.ColumnSpan='5'
+                    VerticalAlignment='Bottom'>
+            <StackPanel.Effect>
+                <DropShadowEffect />
+            </StackPanel.Effect>
+            <StackPanel.Background>
+                <SolidColorBrush  Color="Gray"/>
+            </StackPanel.Background>
+            <StackPanel Orientation='Horizontal'
+                        Margin='6'
+                        HorizontalAlignment='Center'>
+                <Button x:Name='Backwards'
+                        Padding='4'
+                        Content='&lt; Предыдущая'
+                        Margin='6'
+                        Click='Backwards_Click'></Button>
+                <Button x:Name='First'
+                        Padding='4'
+                        Content='&lt;&lt; Первая'
+                        Margin='6'
+                        Click='First_Click'></Button>
+                <Grid Margin='6'
+                      VerticalAlignment='Center'
+                      HorizontalAlignment='Center'>
+                    <Label x:Name='PageInfo'
+                           Foreground='Black' FontSize="16" />
+                </Grid>
+                <Grid VerticalAlignment='Center'
+                      Margin='6'
+                      HorizontalAlignment='Center'>
+                    <ComboBox x:Name='NumberOfRecords'
+                              SelectedIndex='0'
+                              SelectionChanged='NumberOfRecords_SelectionChanged' />
+                </Grid>
+                <Button x:Name='Last'
+                        Padding='4'
+                        Content='&gt;&gt; Последняя'
+                        Margin='6'
+                        Click='Last_Click'></Button>
+                <Button x:Name='Forward'
+                        Padding='4'
+                        Content='&gt; Следующая'
+                        Margin='6'
+                        Click='Forward_Click'></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+    
+</Window>

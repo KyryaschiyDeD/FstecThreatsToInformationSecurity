@@ -1,0 +1,31 @@
+﻿<Window x:Class="FstecThreatsToInformationSecurity.Windows.InitialVerification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Height="219.334" Width="406.667" Title="Скачать?"> 
+    <Grid Margin="0,0,2,0" Background="#FF272727">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="300*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Данные не найдены!!!" Foreground="#FFAEAEAE" HorizontalAlignment="Left" Margin="1.667,10,0,0" VerticalAlignment="Top" Width="205" FontSize="20" Grid.Column="1"/>
+        <Label Content="Загрузить данные с сервера?" Foreground="#FFAEAEAE" HorizontalAlignment="Left" Margin="38,46,0,0" VerticalAlignment="Top" FontSize="24" Grid.ColumnSpan="2">
+            <Label.Background>
+                <SolidColorBrush/>
+            </Label.Background>
+        </Label>
+        <Button Content="Загрузить" IsDefault="True" 
+                Click="Accept_Click" HorizontalAlignment="Left" 
+                Margin="49,104,0,0" VerticalAlignment="Top" 
+                Width="165" Background="#FF00B208" 
+                FontSize="22" Height="45" 
+                Grid.ColumnSpan="2" BorderBrush="#FF017001" 
+                Foreground="Black"/>
+        <Button Content="Выйти" IsCancel="True" 
+                HorizontalAlignment="Left" Margin="135.667,114,0,0" 
+                VerticalAlignment="Top" Width="128" 
+                Background="Red" FontSize="18"
+                Grid.Column="1" BorderBrush="#FF6E0000"/>
+    </Grid>
+</Window>
