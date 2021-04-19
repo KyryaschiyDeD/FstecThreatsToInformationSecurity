@@ -62,6 +62,7 @@ namespace FstecThreatsToInformationSecurity.Windows
                 Availability.IsChecked = obj.Availability;
                 DateCreate.Content = obj.DateCreate;
                 DateUpdate.Content = obj.DateUpdate;
+                
                // DateUpload.Content = obj.DateUpload;
             }
             else

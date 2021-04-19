@@ -309,7 +309,7 @@ namespace FstecThreatsToInformationSecurity.classes
                             Report.countUpdate++;
                             reports.Add(new Report
                             {
-                                Id = i,
+                                Id = i+1,
                                 ParamName = paramsNeedAnUpdate,
                                 Data = newDataUpdate,
                                 OldData = oldData,
@@ -432,6 +432,9 @@ namespace FstecThreatsToInformationSecurity.classes
                             }
                         }
                     }
+                    Report.countDel = 0;
+                    Report.countNew = 0;
+                    Report.countUpdate = 0;
                     Process.Start("C:\\Windows\\System32\\notepad.exe", "lastUpdateInfo.txt");
                 }
                 
